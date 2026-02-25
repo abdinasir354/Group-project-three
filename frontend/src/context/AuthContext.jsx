@@ -1,82 +1,39 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
-import api from "../utils/api";
+import React, { createContext, useState, useContext, useEffect } from "react";
 
-// shape of context value:
-// { user, loading, login, register, logout }
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem("quiz_token"));
   const [loading, setLoading] = useState(true);
 
-  // try to bootstrap auth state from localStorage
   useEffect(() => {
-    const token = localStorage.getItem("quiz_token");
-    const userData = localStorage.getItem("quiz_user");
-    if (token && userData) {
-      try {
-        setUser(JSON.parse(userData));
-      } catch (err) {
-        // corrupted data, clear it
-        localStorage.removeItem("quiz_user");
-      }
+    const savedUser = localStorage.getItem("quiz_user");
+    if (savedUser && token) {
+      setUser(JSON.parse(savedUser));
     }
     setLoading(false);
-  }, []);
+  }, [token]);
 
-  const login = async ({ email, password, isAdmin = false }) => {
-    // choose endpoint based on role
-    const route = isAdmin ? "/admin/login" : "/student/login";
-    const res = await api.post(route, { email, password });
-    const payload = res.data;
-
-    // the backend returns either { token, student } or { token, admin }
-    const currentUser = isAdmin ? payload.admin : payload.student;
-    const normalized = {
-      ...currentUser,
-      role: currentUser.role || (isAdmin ? "admin" : "student"),
-    };
-
-    setUser(normalized);
-    localStorage.setItem("quiz_token", payload.token);
-    localStorage.setItem("quiz_user", JSON.stringify(normalized));
-
-    return normalized;
-  };
-
-  const register = async ({ name, email, password }) => {
-    const res = await api.post("/student/register", { name, email, password });
-    const payload = res.data;
-    const normalized = { ...payload.student, role: "student" };
-
-    setUser(normalized);
-    localStorage.setItem("quiz_token", payload.token);
-    localStorage.setItem("quiz_user", JSON.stringify(normalized));
-
-    return normalized;
+  const login = (userData, userToken) => {
+    setUser(userData);
+    setToken(userToken);
+    localStorage.setItem("quiz_token", userToken);
+    localStorage.setItem("quiz_user", JSON.stringify(userData));
   };
 
   const logout = () => {
     setUser(null);
+    setToken(null);
     localStorage.removeItem("quiz_token");
     localStorage.removeItem("quiz_user");
   };
 
   return (
-    <AuthContext.Provider
-      value={{ user, loading, login, register, logout }}
-    >
+    <AuthContext.Provider value={{ user, token, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
-};
-
-export default AuthContext;
+export const useAuth = () => useContext(AuthContext);
