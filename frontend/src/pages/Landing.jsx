@@ -1,11 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {
-  Rocket,
   Trophy,
   BookOpen,
   Users,
-  Star,
   CheckCircle,
   Zap,
   Lightbulb,
@@ -14,35 +12,10 @@ import {
 
 const Landing = () => {
   return (
-    <div style={{ padding: "80px 24px 60px" }}>
-      <div style={{ maxWidth: 960, margin: "0 auto" }}>
+    <div style={{ padding: "80px 24px 60px", background: "#0b1220" }}>
+      <div style={{ maxWidth: 980, margin: "0 auto" }}>
         {/* Hero */}
         <div style={{ textAlign: "center", marginBottom: 80 }}>
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              background: "#1a1a2e",
-              border: "1px solid #3730a3",
-              borderRadius: "40px",
-              padding: "6px 16px",
-              marginBottom: 24,
-            }}
-          >
-            <Star
-              style={{
-                width: 14,
-                height: 14,
-                color: "#f59e0b",
-                fill: "#f59e0b",
-              }}
-            />
-            <span style={{ color: "#818cf8", fontSize: 13, fontWeight: 700 }}>
-              New: Lifelines & Streaks added
-            </span>
-          </div>
-
           <h1
             style={{
               color: "white",
@@ -95,7 +68,6 @@ const Landing = () => {
                 transition: "background 0.2s",
               }}
             >
-              <Rocket style={{ width: 20, height: 20 }} />
               Browse Categories
             </Link>
             <Link

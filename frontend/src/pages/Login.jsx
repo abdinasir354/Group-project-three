@@ -29,51 +29,109 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-12 px-6 flex items-center justify-center">
-      <div className="w-full max-w-md">
-        <div style={{ background: '#1c1c28', border: '1px solid #2a2a3a', borderRadius: '10px' }} className="p-8">
+    <div
+      style={{
+        minHeight: '100vh',
+        padding: '120px 24px 48px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: '#0b1220',
+      }}
+    >
+      <div style={{ width: '100%', maxWidth: 460 }}>
+        <div
+          style={{
+            background: '#1c1c28',
+            border: '1px solid #2a2a3a',
+            borderRadius: '14px',
+            padding: '30px',
+          }}
+        >
 
-          <div className="mb-8">
-            <h2 className="text-2xl font-black text-white mb-1">Login</h2>
-            <p className="text-slate-400 text-sm">Enter your credentials to continue.</p>
+          <div style={{ marginBottom: 26 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+              <ShieldCheck style={{ width: 18, height: 18, color: '#818cf8' }} />
+              <span style={{ fontSize: 13, color: '#a5b4fc', fontWeight: 700 }}>Secure access</span>
+            </div>
+            <h2 style={{ fontSize: 30, fontWeight: 900, color: 'white', margin: 0 }}>Login</h2>
+            <p style={{ color: '#94a3b8', fontSize: 14, marginTop: 6 }}>Enter your credentials to continue.</p>
           </div>
 
           {error && (
-            <div style={{ background: '#2a1a1a', border: '1px solid #7f1d1d', borderRadius: '8px' }} className="mb-6 p-3 text-red-400 text-sm">
+            <div
+              style={{
+                background: '#2a1a1a',
+                border: '1px solid #7f1d1d',
+                borderRadius: '8px',
+                marginBottom: 18,
+                padding: '10px 12px',
+                color: '#f87171',
+                fontSize: 14,
+              }}
+            >
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div>
-              <label className="block text-sm font-semibold text-slate-300 mb-2">Email</label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500">
-                  <Mail className="w-4 h-4" />
+          <form onSubmit={handleSubmit} style={{ display: 'grid', gap: 16 }}>
+            <div style={{ display: 'grid', gap: 8 }}>
+              <label style={{ fontSize: 14, fontWeight: 700, color: '#cbd5e1' }}>Email</label>
+              <div style={{ position: 'relative' }}>
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    width: 42,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#64748b',
+                    pointerEvents: 'none',
+                  }}
+                >
+                  <Mail style={{ width: 16, height: 16 }} />
                 </div>
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="handmade-input pl-11"
+                  className="handmade-input"
+                  style={{ paddingLeft: 42 }}
                   placeholder="Enter your email"
                 />
               </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-semibold text-slate-300 mb-2">Password</label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500">
-                  <Lock className="w-4 h-4" />
+            <div style={{ display: 'grid', gap: 8 }}>
+              <label style={{ fontSize: 14, fontWeight: 700, color: '#cbd5e1' }}>Password</label>
+              <div style={{ position: 'relative' }}>
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    width: 42,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#64748b',
+                    pointerEvents: 'none',
+                  }}
+                >
+                  <Lock style={{ width: 16, height: 16 }} />
                 </div>
                 <input
                   type="password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="handmade-input pl-11"
+                  className="handmade-input"
+                  style={{ paddingLeft: 42 }}
                   placeholder="Enter your password"
                 />
               </div>
@@ -82,16 +140,30 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              style={{ background: '#6366f1', borderRadius: '8px', width: '100%' }}
-              className="flex items-center justify-center gap-2 text-white font-bold py-3 mt-2 hover:bg-indigo-500 disabled:opacity-60"
+              style={{
+                background: '#6366f1',
+                borderRadius: '8px',
+                width: '100%',
+                border: 'none',
+                padding: '12px',
+                marginTop: 2,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 8,
+                color: 'white',
+                fontWeight: 800,
+                cursor: loading ? 'not-allowed' : 'pointer',
+                backgroundColor: loading ? '#4f46e5' : '#6366f1',
+              }}
             >
-              {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Login'}
+              {loading ? <Loader2 style={{ width: 18, height: 18 }} className="animate-spin" /> : 'Login'}
             </button>
           </form>
 
-          <p className="mt-6 text-center text-slate-500 text-sm">
+          <p style={{ marginTop: 18, textAlign: 'center', color: '#94a3b8', fontSize: 14 }}>
             Don't have an account?{' '}
-            <Link to="/register" className="text-indigo-400 hover:text-white font-semibold">
+            <Link to="/register" style={{ color: '#818cf8', textDecoration: 'none', fontWeight: 700 }}>
               Register
             </Link>
           </p>

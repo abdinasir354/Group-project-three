@@ -138,7 +138,7 @@ const Register = () => {
                 borderRadius: "8px",
                 width: "100%",
               }}
-              className="flex items-center justify-center gap-2 text-white font-bold py-3 mt-2 hover:bg-indigo-500 disabled:opacity-60"
+              className="flex items-center justify-center gap-2 text-white font-bold py-3 mt-2 hover:bg-indigo-500"
             >
               {loading ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
