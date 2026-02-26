@@ -41,7 +41,7 @@ const Categories = () => {
           </p>
           {!user && (
             <p style={{ color: '#f59e0b', fontSize: 13, marginTop: 12, padding: '10px 14px', background: '#1c1a10', border: '1px solid #78350f', borderRadius: 8, display: 'inline-block' }}>
-              Guest mode — <a href="/register" style={{ color: '#fbbf24', fontWeight: 700, textDecoration: 'none' }}>Register</a> to save your progress
+              Guest mode - <a href="/register" style={{ color: '#fbbf24', fontWeight: 700, textDecoration: 'none' }}>Register</a> to save your progress
             </p>
           )}
         </div>

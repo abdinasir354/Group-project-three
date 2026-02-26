@@ -53,10 +53,12 @@ function StudentLayout() {
         </Link>
 
         <nav style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          {navItems.map(({ to, label, icon: Icon }) => (
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            return (
             <NavLink
-              key={to}
-              to={to}
+              key={item.to}
+              to={item.to}
               style={({ isActive }) => ({
                 textDecoration: "none",
                 color: isActive ? "white" : "#94a3b8",
@@ -72,9 +74,10 @@ function StudentLayout() {
               })}
             >
               <Icon style={{ width: 16, height: 16 }} />
-              {label}
+              {item.label}
             </NavLink>
-          ))}
+            );
+          })}
         </nav>
 
         <div

@@ -167,7 +167,7 @@ const Quiz = () => {
     }
   };
 
-  const useLifeline = (type) => {
+  const applyLifeline = (type) => {
     if (!lifelines[type] || selected !== null) return;
     
     if (type === 'hint') {
@@ -302,7 +302,7 @@ const Quiz = () => {
       {/* Lifelines bar */}
       <div style={{ display: 'flex', gap: 10, marginBottom: 20 }} className="mobile-column">
         <button 
-          onClick={() => useLifeline('hint')} 
+          onClick={() => applyLifeline('hint')} 
           disabled={!lifelines.hint || selected !== null || !q.hint}
           style={{ 
             flex: 1, height: 42, background: '#1c1c28', border: '1px solid #2a2a3a', borderRadius: 10, cursor: 'pointer',
@@ -313,7 +313,7 @@ const Quiz = () => {
           <Lightbulb style={{ width: 16, height: 16 }} /> Hint
         </button>
         <button 
-          onClick={() => useLifeline('fiftyFifty')} 
+          onClick={() => applyLifeline('fiftyFifty')} 
           disabled={!lifelines.fiftyFifty || selected !== null}
           style={{ 
             flex: 1, height: 42, background: '#1c1c28', border: '1px solid #2a2a3a', borderRadius: 10, cursor: 'pointer',

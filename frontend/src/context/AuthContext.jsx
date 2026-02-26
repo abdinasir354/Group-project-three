@@ -1,19 +1,23 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+import React, { createContext, useState, useContext } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem("quiz_token"));
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
+  const [token, setToken] = useState(() => localStorage.getItem("quiz_token"));
+  const [user, setUser] = useState(() => {
+    const savedToken = localStorage.getItem("quiz_token");
     const savedUser = localStorage.getItem("quiz_user");
-    if (savedUser && token) {
-      setUser(JSON.parse(savedUser));
+
+    if (!savedToken || !savedUser) return null;
+
+    try {
+      return JSON.parse(savedUser);
+    } catch {
+      localStorage.removeItem("quiz_user");
+      return null;
     }
-    setLoading(false);
-  }, [token]);
+  });
+  const loading = false;
 
   const login = (userData, userToken) => {
     setUser(userData);
@@ -38,4 +42,5 @@ export const AuthProvider = ({ children }) => {
 
 
 //user authantication
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => useContext(AuthContext);

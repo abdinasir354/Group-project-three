@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { JWT_SECRET } = require('../config/auth');
 
 const adminAuth = (req, res, next) => {
   try {
@@ -8,7 +9,7 @@ const adminAuth = (req, res, next) => {
     }
 
     const token = authHeader.split(' ')[1];
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your_admin_secret');
+    const decoded = jwt.verify(token, JWT_SECRET);
     
     if (decoded.role !== 'admin') {
       return res.status(403).json({ message: 'Access denied: Admins only' });

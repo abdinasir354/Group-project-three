@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Users, FileText, CheckCircle, Clock, PlusCircle, ArrowRight, FolderOpen, Target, Trophy } from 'lucide-react';
+import { Users, FileText, PlusCircle, ArrowRight, FolderOpen, Target, Trophy } from 'lucide-react';
 import api from '../../utils/api';
 import { Link } from 'react-router-dom';
 
@@ -47,17 +47,20 @@ const AdminDashboard = () => {
 
         {/* Stat cards */}
         <div className="mobile-grid-1" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 12, marginBottom: 32 }}>
-          {stats_list.map(({ icon: Icon, label, value, color }) => (
-            <div key={label} style={{ background: '#1c1c28', border: '1px solid #2a2a3a', borderRadius: 12, padding: '24px 20px', display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <div style={{ width: 44, height: 44, background: color + '12', border: `1px solid ${color}30`, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Icon style={{ width: 22, height: 22, color }} />
+          {stats_list.map((item) => {
+            const Icon = item.icon;
+            return (
+            <div key={item.label} style={{ background: '#1c1c28', border: '1px solid #2a2a3a', borderRadius: 12, padding: '24px 20px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div style={{ width: 44, height: 44, background: item.color + '12', border: `1px solid ${item.color}30`, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Icon style={{ width: 22, height: 22, color: item.color }} />
               </div>
               <div>
-                <p style={{ color: 'white', fontWeight: 900, fontSize: 32, margin: '0 0 4px', lineHeight: 1 }}>{value}</p>
-                <p style={{ color: '#64748b', fontSize: 13, fontWeight: 600, margin: 0 }}>{label}</p>
+                <p style={{ color: 'white', fontWeight: 900, fontSize: 32, margin: '0 0 4px', lineHeight: 1 }}>{item.value}</p>
+                <p style={{ color: '#64748b', fontSize: 13, fontWeight: 600, margin: 0 }}>{item.label}</p>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Grid */}

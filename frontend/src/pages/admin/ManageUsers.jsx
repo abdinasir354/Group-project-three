@@ -7,16 +7,21 @@ const ManageUsers = () => {
   const [loading, setLoading]   = useState(true);
   const [search, setSearch]     = useState('');
 
-  const fetchStudents = () => {
-    setLoading(true);
-    api.get('/admin/students')
-      .then(res => setStudents(res.data))
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  };
-
   useEffect(() => {
-    fetchStudents();
+    let isMounted = true;
+
+    api.get('/admin/students')
+      .then(res => {
+        if (isMounted) setStudents(res.data);
+      })
+      .catch(console.error)
+      .finally(() => {
+        if (isMounted) setLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const handleDelete = async (id) => {
@@ -93,7 +98,7 @@ const ManageUsers = () => {
 
             {/* Rows */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {filtered.map((student, i) => (
+              {filtered.map((student) => (
                 <div
                   key={student._id}
                   className="mobile-column"

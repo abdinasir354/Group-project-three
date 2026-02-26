@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LayoutDashboard, FileText, Users, LogOut, ChevronLeft, ChevronRight, Shield, FolderOpen, Trophy, Menu, X } from 'lucide-react';
+import { LayoutDashboard, Users, LogOut, ChevronLeft, ChevronRight, Shield, FolderOpen, Trophy, Menu, X } from 'lucide-react';
 
 const AdminLayout = () => {
   const { user, logout } = useAuth();
@@ -9,11 +9,6 @@ const AdminLayout = () => {
   const location = useLocation();
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  // Close mobile sidebar on route change
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [location.pathname]);
 
   const handleLogout = () => {
     logout();
@@ -101,12 +96,14 @@ const AdminLayout = () => {
 
         {/* Nav */}
         <nav className="flex-1 p-2 space-y-1 overflow-y-auto">
-          {navItems.map(({ path, label, icon: Icon }) => {
-            const active = location.pathname === path;
+          {navItems.map((item) => {
+            const active = location.pathname === item.path;
+            const Icon = item.icon;
             return (
               <Link
-                key={path}
-                to={path}
+                key={item.path}
+                to={item.path}
+                onClick={() => setMobileOpen(false)}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -124,7 +121,7 @@ const AdminLayout = () => {
                 }}
               >
                 <Icon className="w-4 h-4 shrink-0" />
-                {(!collapsed || mobileOpen) && label}
+                {(!collapsed || mobileOpen) && item.label}
               </Link>
             );
           })}

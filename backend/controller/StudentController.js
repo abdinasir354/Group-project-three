@@ -1,8 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const Student = require('../model/Student');
-
-const JWT_SECRET = process.env.JWT_SECRET || 'your_default_secret';
+const { JWT_SECRET } = require('../config/auth');
 
 const register = async (req, res) => {
   const { name, email, password } = req.body;

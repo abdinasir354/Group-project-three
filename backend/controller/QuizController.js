@@ -1,6 +1,7 @@
 const Question = require('../model/Question');
 const Category = require('../model/Category');
 const Score = require('../model/Score');
+const mongoose = require('mongoose');
 
 // Get published categories (for students)
 const getCategories = async (req, res) => {
@@ -22,10 +23,16 @@ const getQuestions = async (req, res) => {
   try {
     const { category, limit = 10 } = req.query;
     if (!category) return res.status(400).json({ message: 'Category ID required' });
+    if (!mongoose.Types.ObjectId.isValid(category)) {
+      return res.status(400).json({ message: 'Invalid category ID' });
+    }
+
+    const parsedLimit = Number.parseInt(limit, 10);
+    const sampleSize = Number.isFinite(parsedLimit) && parsedLimit > 0 ? parsedLimit : 10;
 
     const questions = await Question.aggregate([
-      { $match: { category: require('mongoose').Types.ObjectId.createFromHexString(category) } },
-      { $sample: { size: parseInt(limit) } },
+      { $match: { category: new mongoose.Types.ObjectId(category) } },
+      { $sample: { size: sampleSize } },
     ]);
 
     res.json(questions);

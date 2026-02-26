@@ -5,8 +5,7 @@ const Student = require("../model/Student");
 const Question = require("../model/Question");
 const Category = require("../model/Category");
 const Score = require("../model/Score");
-
-const JWT_SECRET = process.env.JWT_SECRET || "mysecrete";
+const { JWT_SECRET } = require("../config/auth");
 
 // ── Auth ──────────────────────────────────────────────────────────
 const register = async (req, res) => {

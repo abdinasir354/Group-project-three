@@ -130,7 +130,7 @@ const ManageCategories = () => {
                   <div style={{ minWidth: 0 }}>
                     <p style={{ color: 'white', fontSize: 14, fontWeight: 700, margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{cat.name}</p>
                     <p style={{ color: '#64748b', fontSize: 12, margin: '2px 0 0', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                      {cat.questionCount || 0} Q · {cat.description || 'No description'}
+                      {cat.questionCount || 0} Q - {cat.description || 'No description'}
                     </p>
                   </div>
                 </div>
@@ -164,7 +164,7 @@ const ManageCategories = () => {
                       <Edit2 style={{ width: 14, height: 14 }} />
                     </button>
 
-                    <button onClick={() => handleDelete(cat._id)} style={{ background: '#111118', border: '1px solid #ef444430', border: '1px solid #ef444460', borderRadius: 8, padding: '6px', cursor: 'pointer', color: '#ef4444' }}>
+                    <button onClick={() => handleDelete(cat._id)} style={{ background: '#111118', border: '1px solid #ef444460', borderRadius: 8, padding: '6px', cursor: 'pointer', color: '#ef4444' }}>
                       <Trash2 style={{ width: 14, height: 14 }} />
                     </button>
                   </div>
